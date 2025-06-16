@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+@layer base {
+  :root {
+    /* Light Theme - Blue Dominant */
+    --background: 248 250 252;
+    --foreground: 15 23 42;
+    --card: 255 255 255;
+    --card-foreground: 15 23 42;
+    --popover: 255 255 255;
+    --popover-foreground: 15 23 42;
+    --primary: 23 37 84;         /* Deep Navy Blue */
+    --primary-foreground: 248 250 252;
+    --secondary: 241 245 249;
+    --secondary-foreground: 15 23 42;
+    --muted: 241 245 249;
+    --muted-foreground: 100 116 139;
+    --accent: 37 99 235;        /* Vibrant Blue */
+    --accent-foreground: 248 250 252;
+    --destructive: 239 68 68;
+    --destructive-foreground: 248 250 252;
+    --border: 226 232 240;
+    --input: 226 232 240;
+    --ring: 37 99 235;          /* Matching Accent */
+    --chart-1: 217 70% 50%;     /* Blue */
+    --chart-2: 197 58% 39%;     /* Teal */
+    --chart-3: 220 37% 24%;     /* Dark Blue */
+    --chart-4: 203 74% 66%;     /* Sky Blue */
+    --chart-5: 207 87% 67%;     /* Light Blue */
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    /* Dark Theme - Deep Blue */
+    --background: 12 20 38;      /* Dark Navy */
+    --foreground: 248 250 252;
+    --card: 23 37 84;           /* Deep Blue */
+    --card-foreground: 248 250 252;
+    --popover: 23 37 84;
+    --popover-foreground: 248 250 252;
+    --primary: 248 250 252;
+    --primary-foreground: 15 23 42;
+    --secondary: 51 65 85;
+    --secondary-foreground: 248 250 252;
+    --muted: 51 65 85;
+    --muted-foreground: 148 163 184;
+    --accent: 59 130 246;       /* Bright Blue */
+    --accent-foreground: 248 250 252;
+    --destructive: 239 68 68;
+    --destructive-foreground: 248 250 252;
+    --border: 51 65 85;
+    --input: 51 65 85;
+    --ring: 59 130 246;
+    --chart-1: 217 70% 50%;     /* Blue */
+    --chart-2: 197 58% 39%;     /* Teal */
+    --chart-3: 220 37% 24%;     /* Dark Blue */
+    --chart-4: 203 74% 66%;     /* Sky Blue */
+    --chart-5: 207 87% 67%;     /* Light Blue */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+}
+
+@layer components {
+  .tech-gradient {
+    background: linear-gradient(135deg, #0a192f 0%, #172a45 50%, #1e3a8a 100%);
+  }
+
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .gradient-border {
+    position: relative;
+    background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+    border-radius: 12px;
+    padding: 1px;
+  }
+
+  .gradient-border-content {
+    background: hsl(var(--background));
+    border-radius: 11px;
+    padding: 1.5rem;
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--accent));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--accent) / 0.8);
+}
+
+/* Hide Next.js badge and error messages */
+body > nextjs-portal {
+  display: none;
+}
