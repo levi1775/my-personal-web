@@ -10,6 +10,8 @@ import { Label } from '@/components/ui/label';
 import { FiMail, FiLinkedin, FiGithub, FiMapPin, FiSend } from 'react-icons/fi';
 import { toast } from 'sonner';
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 const Contact = () => {
   const [ref, inView] = useInView({
     triggerOnce: true,
@@ -33,7 +35,6 @@ const Contact = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    console.log("Form input changed:", name, value);
     setFormData(prev => ({
       ...prev,
       [name]: value,
@@ -42,27 +43,32 @@ const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted with data:", formData);
-
     setIsSubmitting(true);
 
     try {
-      // Simulate form submission
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
-      toast.success("Message sent successfully! I'll get back to you soon.");
-      console.log("Form submission successful");
-
-      // Reset form
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: '',
+      const res = await fetch(apiUrl as string, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
       });
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        toast.success("Message sent successfully! I'll get back to you soon.");
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: '',
+        });
+      } else if (data.errors) {
+        toast.error(data.errors.map((err: any) => err.msg).join(', '));
+      } else {
+        toast.error("Failed to send message. Please try again.");
+      }
     } catch (error) {
-      console.error("Form submission error:", error);
-      toast.error("Failed to send message. Please try again.");
+      toast.error("Network error. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
